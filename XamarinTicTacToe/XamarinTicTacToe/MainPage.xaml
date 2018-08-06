@@ -4,11 +4,77 @@
              xmlns:local="clr-namespace:XamarinTicTacToe"
              x:Class="XamarinTicTacToe.MainPage">
 
-    <StackLayout>
-        <!-- Place new controls here -->
-    	<Label Text="Welcome to Xamarin.Forms!" 
-           HorizontalOptions="Center"
-           VerticalOptions="CenterAndExpand" />
-    </StackLayout>
+    <ContentPage.Resources>
+        <Style TargetType="Label">
+            <Style.Setters>
+                <Setter Property="Margin" Value="5"></Setter>
+            </Style.Setters>
+        </Style>
+    </ContentPage.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"></RowDefinition>
+            <RowDefinition Height="4*"></RowDefinition>
+
+        </Grid.RowDefinitions>
+
+        <!--<Border BorderThickness="1"
+            Grid.Column="0"
+            BorderBrush="Black"
+            Margin="10">-->
+        <Grid x:Name="FieldGrid"
+              Margin="10"
+              Grid.Row="1">
+
+        </Grid>
+        <!--</Border>-->
+
+        <Grid
+          Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Label x:Name="FirstPlayerNameLabel"
+               Grid.Row="0"
+               HorizontalOptions="CenterAndExpand"
+               HorizontalTextAlignment="Center"></Label>
+
+            <Label x:Name="VsLabel"
+               Grid.Row="1"
+               HorizontalTextAlignment="Center"
+               HorizontalOptions="CenterAndExpand"
+               Text="VS"></Label>
+
+            <Label x:Name="SecondPlayerNameLabel"
+               Grid.Row="2"
+               HorizontalTextAlignment="Center"
+               HorizontalOptions="CenterAndExpand"></Label>
+
+            <Label x:Name="WinnerLabel"
+               Grid.Row="4"
+               HorizontalTextAlignment="Center"
+               HorizontalOptions="CenterAndExpand"
+               TextColor="Green"
+               FontFamily="Bold"></Label>
+
+            <Button x:Name="RestartButton"
+                Grid.Row="5"
+                Margin="5"
+                IsEnabled="True"
+                Text="Restart"
+                Clicked="RestartButton_OnClick"
+                ></Button>
+        </Grid>
+
+    </Grid>
 
 </ContentPage>
