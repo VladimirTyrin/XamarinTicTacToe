@@ -1,6 +1,6 @@
 # TicTacToe
 
-Tic-tac-toe game implemented using Xamarin.Forms
+Tic-tac-toe game implemented using Xamarin.Forms (play against simple bot)
 
 Runs on Android, iOS and Windows.
 
