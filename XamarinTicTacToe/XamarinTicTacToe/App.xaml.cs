@@ -1,10 +1,11 @@
-using System;
+using System.Diagnostics.CodeAnalysis;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 [assembly: XamlCompilation (XamlCompilationOptions.Compile)]
 namespace XamarinTicTacToe
 {
+	[SuppressMessage("ReSharper", "RedundantExtendsListEntry")]
 	public partial class App : Application
 	{
 		public App ()
