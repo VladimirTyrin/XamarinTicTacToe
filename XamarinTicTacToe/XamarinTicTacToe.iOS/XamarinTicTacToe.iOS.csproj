@@ -141,6 +141,9 @@
     </ImageAsset>
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="ITCC.Logging.Core">
+      <HintPath>..\..\..\..\..\Users\b0-0b\.nuget\packages\itcc.logging.core\3.0.0\lib\netstandard1.3\ITCC.Logging.Core.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
@@ -148,6 +151,12 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Xamarin.Forms" Version="3.0.0.561731" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\XamarinTicTacToe.Engine\XamarinTicTacToe.Engine.csproj">
+      <Project>{A87BA4BC-EE62-44FB-9FE6-0DFC5A24E29E}</Project>
+      <Name>XamarinTicTacToe.Engine</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Import Project="..\XamarinTicTacToe\XamarinTicTacToe.projitems" Label="Shared" />

@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="XamarinTicTacToe.CellView">
+    <ContentView.Content>
+        <Grid Margin="0" Padding="0">
+            <Frame Margin="0"
+                   Padding="0"
+                   BorderColor="Black">
+                <Image x:Name="SignImage"
+                       HorizontalOptions="CenterAndExpand"
+                       VerticalOptions="CenterAndExpand"
+                       Aspect="AspectFill"
+                ></Image>
+            </Frame>
+        </Grid>
+    </ContentView.Content>
+</ContentView>

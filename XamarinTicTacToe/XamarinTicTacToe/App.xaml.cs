@@ -1,4 +1,7 @@
+using System;
 using System.Diagnostics.CodeAnalysis;
+using ITCC.Logging.Core;
+using ITCC.Logging.Core.Loggers;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -8,14 +11,18 @@ namespace XamarinTicTacToe
 	[SuppressMessage("ReSharper", "RedundantExtendsListEntry")]
 	public partial class App : Application
 	{
-		public App ()
-		{
-			InitializeComponent();
+	    public static void RunOnUiThread(Action action) => Device.BeginInvokeOnMainThread(action);
 
-			MainPage = new MainPage();
-		}
+	    public App()
+	    {
+	        InitializeComponent();
 
-		protected override void OnStart ()
+	        Logger.Level = LogLevel.Trace;
+	        Logger.RegisterReceiver(new DebugLogger(LogLevel.Trace));
+	        MainPage = new MainPage();
+	    }
+
+        protected override void OnStart ()
 		{
 			// Handle when your app starts
 		}
