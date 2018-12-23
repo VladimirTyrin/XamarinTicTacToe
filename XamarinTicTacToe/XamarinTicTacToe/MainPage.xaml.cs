@@ -3,6 +3,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading;
 using Xamarin.Forms;
+using Xamarin.Forms.Internals;
 using XamarinTicTacToe.Engine;
 using XamarinTicTacToe.Engine.Bots.BrainTvs;
 using XamarinTicTacToe.Engine.Enums;
@@ -28,19 +29,26 @@ namespace XamarinTicTacToe
         public MainPage()
         {
             InitializeComponent();
-            Load();
+            LoadDefault();
         }
 
         private static string PlayerDescription(IPlayer player) => $"{player.Name} ({player.Type})";
 
-        private void Load()
+        private void LoadDefault()
         {
             App.RunOnUiThread(() => WinnerLabel.Text = string.Empty);
-            LoadConfiguration();
+            LoadDefaultConfiguration();
             LoadGame();
         }
 
-        private bool LoadConfiguration()
+        public void Load()
+        {
+            App.RunOnUiThread(() => WinnerLabel.Text = string.Empty);
+            // Do not reload config
+            LoadGame();
+        }
+
+        private void LoadDefaultConfiguration()
         {
             _configuration = new GameConfiguration
             {
@@ -50,7 +58,6 @@ namespace XamarinTicTacToe
                 Height = 10,
                 Width = 10
             };
-            return _configuration.IsValid();
         }
 
         private void LoadGame()
@@ -66,7 +73,7 @@ namespace XamarinTicTacToe
             FirstPlayerNameLabel.Text = PlayerDescription(_configuration.FirstPlayer);
             SecondPlayerNameLabel.Text = PlayerDescription(_configuration.SecondPlayer);
 
-            _game.GameStateChanged += ProcessGameStateChangedAsync;
+            _game.GameStateChanged += ProcessGameStateChanged;
             _game.GameEnded += ProcessGameEnded;
             ReloadGrid();
             LoadCellControls();
@@ -171,7 +178,7 @@ namespace XamarinTicTacToe
             });
         }
 
-        private void ProcessGameStateChangedAsync(object sender, GameStateChangedEventArgs gameStateChangedEventArgs)
+        private void ProcessGameStateChanged(object sender, GameStateChangedEventArgs gameStateChangedEventArgs)
         {
             for (var i = 0; i < gameStateChangedEventArgs.CurrentState.Height; ++i)
             {
@@ -197,5 +204,11 @@ namespace XamarinTicTacToe
         }
 
         private void RestartButton_OnClick(object sender, EventArgs e) => Load();
+
+        private async void SettingsButton_OnClicked(object sender, EventArgs e)
+        {
+            var page = new SettingsPage {Configuration = _configuration, MainPage = this};
+            await Navigation.PushModalAsync(page);
+        }
     }
 }

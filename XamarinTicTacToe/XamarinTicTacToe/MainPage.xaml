@@ -39,6 +39,7 @@
                 <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
                 <RowDefinition Height="Auto"></RowDefinition>
             </Grid.RowDefinitions>
@@ -73,6 +74,14 @@
                 Text="Restart"
                 Clicked="RestartButton_OnClick"
                 ></Button>
+
+            <Button x:Name="SettingsButton"
+                    Grid.Row="6"
+                    Margin="5"
+                    IsEnabled="True"
+                    Text="Settings"
+                    Clicked="SettingsButton_OnClicked"
+            ></Button>
         </Grid>
 
     </Grid>
