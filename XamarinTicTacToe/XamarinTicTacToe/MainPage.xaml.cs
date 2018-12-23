@@ -66,7 +66,7 @@ namespace XamarinTicTacToe
             FirstPlayerNameLabel.Text = PlayerDescription(_configuration.FirstPlayer);
             SecondPlayerNameLabel.Text = PlayerDescription(_configuration.SecondPlayer);
 
-            _game.GameStateChanged += ProcessGameStateChanged;
+            _game.GameStateChanged += ProcessGameStateChangedAsync;
             _game.GameEnded += ProcessGameEnded;
             ReloadGrid();
             LoadCellControls();
@@ -143,19 +143,15 @@ namespace XamarinTicTacToe
             }
 
             var human = _currentPlayer as HumanPlayer;
-            if (human == null)
-            {
-                return;
-            }
 
-            human.SetNextMove(new Engine.Utils.Cell(row, column));
+            human?.SetNextMove(new Engine.Utils.Cell(row, column));
         }
 
         private void ProcessGameEnded(object sender, GameEndedEventArgs gameEndedEventArgs)
         {
             var winnerMessage = gameEndedEventArgs.Winner == null ? "Draw" : $"{gameEndedEventArgs.Winner.Name} won";
             var lastMove = gameEndedEventArgs.History.Last();
-            App.RunOnUiThread(() => _cellControls[lastMove.X, lastMove.Y].LoadPicture(_currentSign));
+            App.RunOnUiThread(async () => await _cellControls[lastMove.X, lastMove.Y].LoadPictureAsync(_currentSign));
 
             if (gameEndedEventArgs.WinningSet != null)
             {
@@ -175,7 +171,7 @@ namespace XamarinTicTacToe
             });
         }
 
-        private void ProcessGameStateChanged(object sender, GameStateChangedEventArgs gameStateChangedEventArgs)
+        private void ProcessGameStateChangedAsync(object sender, GameStateChangedEventArgs gameStateChangedEventArgs)
         {
             for (var i = 0; i < gameStateChangedEventArgs.CurrentState.Height; ++i)
             {
@@ -186,7 +182,7 @@ namespace XamarinTicTacToe
             }
             var lastMove = gameStateChangedEventArgs.CurrentState.LastMove;
             var currentSign = gameStateChangedEventArgs.CurrentState.PlayerSign;
-            App.RunOnUiThread(() => _cellControls[lastMove.X, lastMove.Y].LoadPicture(currentSign));
+            App.RunOnUiThread(async () => await _cellControls[lastMove.X, lastMove.Y].LoadPictureAsync(currentSign));
 
             SwitchPlayer();
             if (IsHumansTurn())

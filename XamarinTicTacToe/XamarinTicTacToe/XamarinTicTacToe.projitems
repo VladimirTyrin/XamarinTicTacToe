@@ -47,4 +47,8 @@
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Assets\OJustMoved.png" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Assets\XJustMoved.png" />
+  </ItemGroup>
 </Project>

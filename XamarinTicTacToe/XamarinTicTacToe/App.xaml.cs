@@ -13,7 +13,7 @@ namespace XamarinTicTacToe
 	{
 	    public static void RunOnUiThread(Action action) => Device.BeginInvokeOnMainThread(action);
 
-	    public App()
+        public App()
 	    {
 	        InitializeComponent();
 
