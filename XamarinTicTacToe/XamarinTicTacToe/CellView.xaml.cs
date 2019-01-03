@@ -11,7 +11,8 @@ using XamarinTicTacToe.Engine.Enums;
 namespace XamarinTicTacToe
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class CellView : ContentView
+    // ReSharper disable once RedundantExtendsListEntry
+    public partial class CellView : ContentView
 	{
         private static readonly Dictionary<string, byte[]> ResourceCache = new Dictionary<string, byte[]>();
         private static readonly Dictionary<string, ImageSource> ImageSourceCache = new Dictionary<string, ImageSource>();
