@@ -214,6 +214,7 @@ namespace XamarinTicTacToe.Engine
             }
             catch (Exception ex)
             {
+                LogException(ex);
                 LogMessage(LogLevel.Debug, $"Bot {_currentPlayer.Name} failed turn with {ex.GetType().Name}");
                 return null;
             }
@@ -396,6 +397,8 @@ namespace XamarinTicTacToe.Engine
         private void OnGameEnded(GameEndedEventArgs e) => GameEnded?.Invoke(this, e);
 
         private static void LogMessage(LogLevel level, string message) => Logger.LogEntry(LogScope, level, message);
+
+        private static void LogException(Exception exception) => Logger.LogException(LogScope, LogLevel.Warning, exception);
 
         private readonly int _width;
         private readonly int _height;

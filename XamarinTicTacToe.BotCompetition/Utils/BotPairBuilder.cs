@@ -18,7 +18,7 @@ namespace XamarinTicTacToe.BotCompetition.Utils
                  * 1) Only one of (a, b) and (b, a) pairs
                  * 2) Only pairs (a, b) with a != b
                  */
-                foreach (var innerBotType in innerBotTypes.Where(innerBotType => botType <= innerBotType))
+                foreach (var innerBotType in innerBotTypes.Where(innerBotType => botType < innerBotType))
                 {
                     yield return new BotPair
                     {

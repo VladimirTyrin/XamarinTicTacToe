@@ -7,7 +7,7 @@ namespace XamarinTicTacToe.BotCompetition
 {
     internal static class Program
     {
-        private const int PairCompetitionCount = 1000;
+        private const int PairCompetitionCount = 100;
         private const int FieldWidth = 30;
         private const int FieldHeight = 30;
         private const int BotTurnLength = 1000;
