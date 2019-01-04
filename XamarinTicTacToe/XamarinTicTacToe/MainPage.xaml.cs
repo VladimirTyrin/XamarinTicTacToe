@@ -2,10 +2,13 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
+using ITCC.Logging.Core;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 using XamarinTicTacToe.Engine;
 using XamarinTicTacToe.Engine.Bots.BrainTvs;
+using XamarinTicTacToe.Engine.Bots.BrainTvsV2;
 using XamarinTicTacToe.Engine.Enums;
 using XamarinTicTacToe.Engine.Interfaces;
 using XamarinTicTacToe.Engine.Utils;
@@ -26,6 +29,9 @@ namespace XamarinTicTacToe
         private CellSign _currentSign;
         private CellSign[,] _fieldState;
 
+        private readonly AutoResetEvent _turnEvent = new AutoResetEvent(false);
+        private bool _botTesting;
+
         public MainPage()
         {
             InitializeComponent();
@@ -38,6 +44,17 @@ namespace XamarinTicTacToe
         {
             App.RunOnUiThread(() => WinnerLabel.Text = string.Empty);
             LoadDefaultConfiguration();
+            if (_configuration.FirstPlayer.Type == PlayerType.Bot && _configuration.SecondPlayer.Type == PlayerType.Bot)
+            {
+                _botTesting = true;
+            }
+            else
+            {
+                // Do not leave extra space
+                NextButton.IsVisible = false;
+                NextButton.HeightRequest = 0;
+                NextButton.WidthRequest = 0;
+            }
             LoadGame();
         }
 
@@ -52,9 +69,9 @@ namespace XamarinTicTacToe
         {
             _configuration = new GameConfiguration
             {
-                BotTurnLength = 1000,
+                BotTurnLength = 1_000_000,
                 FirstPlayer = new BrainTvsBot(),
-                SecondPlayer = new HumanPlayer("Human"),
+                SecondPlayer = new BrainTvsBotV2(),
                 Height = 10,
                 Width = 10
             };
@@ -200,6 +217,13 @@ namespace XamarinTicTacToe
                 }
             }
             Thread.Sleep(50);
+
+            if (_botTesting)
+            {
+                _turnEvent.WaitOne();
+                _turnEvent.Reset();
+            }
+
             _game.ReportStepProcessed();
         }
 
@@ -209,6 +233,11 @@ namespace XamarinTicTacToe
         {
             var page = new SettingsPage {Configuration = _configuration, MainPage = this};
             await Navigation.PushModalAsync(page);
+        }
+
+        private void NextButton_OnClicked(object sender, EventArgs e)
+        {
+            _turnEvent.Set();
         }
     }
 }

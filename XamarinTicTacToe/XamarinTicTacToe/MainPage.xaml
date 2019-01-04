@@ -40,6 +40,7 @@
                 <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
                 <RowDefinition Height="Auto"></RowDefinition>
             </Grid.RowDefinitions>
@@ -81,6 +82,14 @@
                     IsEnabled="True"
                     Text="Settings"
                     Clicked="SettingsButton_OnClicked"
+            ></Button>
+
+            <Button x:Name="NextButton"
+                    Grid.Row="7"
+                    Margin="5"
+                    IsEnabled="True"
+                    Text="Next"
+                    Clicked="NextButton_OnClicked"
             ></Button>
         </Grid>
 

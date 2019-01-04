@@ -6,7 +6,7 @@ namespace XamarinTicTacToe.Engine.Bots.BrainTvsV2
 {
     public class BrainTvsBotV2 : BotPlayer
     {
-        public override string Name => "bra1n_tvs bot";
+        public override string Name => "bra1n_tvs bot V2";
         public override Cell GetNextMove(FieldState fieldState)
         {
             if (_justStarted)
