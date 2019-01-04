@@ -77,9 +77,13 @@ namespace XamarinTicTacToe.Engine.Bots.BrainTvsV2
 
             var ourGroup = _ourTriads.FirstOrDefault() 
                 ?? _ourDyads.FirstOrDefault(g => g.Open)
+                //?? _opponentDyads.FirstOrDefault(g => g.Open)
                 ?? _ourDyads.FirstOrDefault();
             if (ourGroup != null)
+            {
+                LogMessage(LogLevel.Trace, $"Using group {ourGroup.QuantityType}; open: {ourGroup.Open}");
                 return ourGroup.GetPossibleMove();
+            }
 
 
             return GetRandomMove();
@@ -368,7 +372,7 @@ namespace XamarinTicTacToe.Engine.Bots.BrainTvsV2
                 Cells = new[] { line[0], line[1] },
                 FreeCells = freeCells,
                 Open = isOpen,
-                QuantityType = 3
+                QuantityType = 2
             };
         }
 
@@ -387,7 +391,7 @@ namespace XamarinTicTacToe.Engine.Bots.BrainTvsV2
                 Cells = new[] { line[0], line[1] },
                 FreeCells = freeCells,
                 Open = isOpen,
-                QuantityType = 3
+                QuantityType = 2
             };
         }
 
@@ -605,12 +609,14 @@ namespace XamarinTicTacToe.Engine.Bots.BrainTvsV2
             => GetCellByDistanceAndDirection(cell, 1, OppositeDirection(direction));
 
         private void LogMessage(LogLevel level, string message)
-            => Logger.LogEntry("BRAIN_TVS", level, message);
+            => Logger.LogEntry("BTVSV2_GRP", level, message);
 
         private readonly int _width;
         private readonly int _height;
         private readonly CellSign _ourSign;
         private CellSign[,] _currentField;
+
+        private Cell OutLastMove => _ourCells.Last();
 
         private readonly List<Cell> _ourCells = new List<Cell>();
         private readonly List<Cell> _opponentCells = new List<Cell>();
